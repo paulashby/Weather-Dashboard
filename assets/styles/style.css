@@ -1,0 +1,62 @@
+h1, h2, h2#form-heading, h3 {
+    font-weight: bold;    
+}
+
+h1 {
+    font-size: 2.5rem;   
+}
+
+h2, h2#form-heading {
+    font-size: 1.8rem;   
+}
+
+h3 {
+    font-size: 1.35rem;
+}
+
+hr {
+    border-top: 1px solid rgba(0,0,0,.75);
+}
+aside {
+    background-color: #fff;
+    height: 100vh;
+}
+
+#input-group-search {
+    flex-wrap: wrap;
+}
+
+#search-form {
+    width: 100%;
+}
+
+#search-input,
+#btn-search,
+.weather-hr {
+    flex-basis: 100%;
+}
+
+.container-fluid {
+    background: rgb(1,141,208);
+    background: linear-gradient(90deg, rgba(1,141,208,1) 0%, rgba(0,12,110,1) 100%);
+}
+
+#city-data {
+    background-color: #fff;
+    height: 100vh;
+    align-self: flex-start;
+}
+
+#today dd {
+    display: inline;
+    margin: 0;
+}
+
+#today dl dd:after{
+    display: block;
+    content: '';
+}
+ 
+#today dl dt{
+    display: inline-block;
+}
