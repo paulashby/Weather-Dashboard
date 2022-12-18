@@ -1,4 +1,4 @@
-h1, h2, h2#form-heading, h3 {
+h1, h2, h2#form-heading, h3, h4 {
     font-weight: bold;    
 }
 
@@ -14,9 +14,14 @@ h3 {
     font-size: 1.35rem;
 }
 
+h4 {
+    font-size: 1.28rem;
+}
+
 hr {
     border-top: 1px solid rgba(0,0,0,.75);
 }
+
 aside {
     background-color: #fff;
     height: 100vh;
@@ -47,16 +52,24 @@ aside {
     align-self: flex-start;
 }
 
-#today dd {
+#today dd, #forecast dd {
     display: inline;
     margin: 0;
 }
 
-#today dl dd:after{
+#today dl dd:after,
+#forecast dl dd:after {
     display: block;
     content: '';
+    margin-bottom: 1rem;
 }
  
-#today dl dt{
+#today dl dt,
+#forecast dl dt {
     display: inline-block;
+}
+
+.long-forecast-entry {
+    background-color: #33485d;
+    color: #fff;
 }
