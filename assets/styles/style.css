@@ -7,7 +7,7 @@ h1 {
 }
 
 h2, h2#form-heading {
-    font-size: 1.8rem;   
+    font-size: 1.8rem;  
 }
 
 h3 {
@@ -24,7 +24,11 @@ hr {
 
 aside {
     background-color: #fff;
-    height: 100vh;
+    padding-top: 0.75rem;
+}
+
+#interface {
+    max-width: 290px;
 }
 
 #input-group-search {
@@ -35,10 +39,13 @@ aside {
     width: 100%;
 }
 
-#search-input,
 #btn-search,
 .weather-hr {
     flex-basis: 100%;
+}
+
+#search-input {
+    width: 100%;
 }
 
 .container-fluid {
@@ -48,8 +55,6 @@ aside {
 
 #city-data {
     background-color: #fff;
-    height: 100vh;
-    align-self: flex-start;
 }
 
 #today dd, #forecast dd {
@@ -73,3 +78,11 @@ aside {
     background-color: #33485d;
     color: #fff;
 }
+
+@media screen and (min-width:576px) {
+
+    #interface {
+        /* max-width for ultra wide resolutions */
+        max-width: 1400px;
+    }
+} */
