@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="assets/styles/reset.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="assets/styles/reset.css">
   <link rel="stylesheet" href="assets/styles/style.css">
   <title>Weather Dashboard</title>
 </head>
@@ -22,7 +21,9 @@
   <div class="container-fluid" style="max-width: 1400px">
     <div class="row">
       <aside class="col-lg-3 pb-3">
+
         <h2 id="form-heading" class="mt-1 h3 form-label">Search for a City:</h2>
+        
         <form id="search-form" class="form">
           <div id="input-group-search" class="input-group">
             <input class="form-input p-2 mb-2 weather-search" type="text" id="search-input" placeholder="London"
@@ -30,8 +31,8 @@
             <button type="submit" class="btn btn-primary" id="btn-search" aria-label="submit search">Search</button>
             <hr class="hr weather-hr">
           </div>
-
         </form>
+
         <div class="list-group" id="history">
           <button class="btn btn-secondary mb-2" type="submit">Berlin</button>
           <button class="btn btn-secondary mb-2" type="submit">Paris</button>
@@ -40,12 +41,13 @@
           <button class="btn btn-secondary mb-2" type="submit">Birmingham</button>
           <button class="btn btn-secondary mb-2" type="submit">London</button>
         </div>
+
       </aside>
 
       <div id="city-data" class="col-lg-9 pb-3">
-        <section id="today" class="mt-3" aria-live="polite">
-          <h2>London (14/9/2022)</h2>
-          <dl>
+        <section id="today" class="mt-3 row" aria-live="polite">
+          <h2 class="col-12">London (14/9/2022)</h2>
+          <dl class="col-12">
             <dt>Temp:</dt>
             <dd>13.63&#8451;</dd>
             <dt>Wind:</dt>
@@ -54,8 +56,102 @@
             <dd>84&percnt;</dd>
           </dl>
         </section>
-        <section id="forecast" class="row mt-3" aria-live="polite">
-          <h3>5-Day Forecast</h3>
+
+        <section id="forecast" class="row" aria-live="polite">
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-12">
+
+                <h3 class="debug-entry">5-Day Forecast</h3>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+
+                <div class="card long-forecast-entry">
+                  <div class="card-body p-2">
+                    <h4 class="card-title">15/9/2022</h4>
+                    <dl>
+                      <dt>Temp:</dt>
+                      <dd>13.63&#8451;</dd>
+                      <dt>Wind:</dt>
+                      <dd>1.7 KPH</dd>
+                      <dt>Humidity</dt>
+                      <dd>84&percnt;</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card long-forecast-entry">
+                  <div class="card-body p-2">
+                    <h4 class="card-title">15/9/2022</h4>
+                    <dl>
+                      <dt>Temp:</dt>
+                      <dd>13.63&#8451;</dd>
+                      <dt>Wind:</dt>
+                      <dd>1.7 KPH</dd>
+                      <dt>Humidity</dt>
+                      <dd>84&percnt;</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card long-forecast-entry">
+                  <div class="card-body p-2">
+                    <h4 class="card-title">15/9/2022</h4>
+                    <dl>
+                      <dt>Temp:</dt>
+                      <dd>13.63&#8451;</dd>
+                      <dt>Wind:</dt>
+                      <dd>1.7 KPH</dd>
+                      <dt>Humidity</dt>
+                      <dd>84&percnt;</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card long-forecast-entry">
+                  <div class="card-body p-2">
+                    <h4 class="card-title">15/9/2022</h4>
+                    <dl>
+                      <dt>Temp:</dt>
+                      <dd>13.63&#8451;</dd>
+                      <dt>Wind:</dt>
+                      <dd>1.7 KPH</dd>
+                      <dt>Humidity</dt>
+                      <dd>84&percnt;</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="card long-forecast-entry">
+                  <div class="card-body p-2">
+                    <h4 class="card-title">15/9/2022</h4>
+                    <dl>
+                      <dt>Temp:</dt>
+                      <dd>13.63&#8451;</dd>
+                      <dt>Wind:</dt>
+                      <dd>1.7 KPH</dd>
+                      <dt>Humidity</dt>
+                      <dd>84&percnt;</dd>
+                    </dl>
+                  </div>                  
+                </div>
+
+              </div>
+            </div>
+          </div>
+
         </section>
       </div>
     </div>
