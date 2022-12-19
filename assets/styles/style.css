@@ -15,7 +15,7 @@ h3 {
 }
 
 h4 {
-    font-size: 1.28rem;
+    font-size: 1.1rem;
 }
 
 hr {
@@ -57,6 +57,10 @@ aside {
     background-color: #fff;
 }
 
+#forecast dl {
+    font-size: 0.9rem;
+}
+
 #today dd, #forecast dd {
     display: inline;
     margin: 0;
@@ -85,4 +89,4 @@ aside {
         /* max-width for ultra wide resolutions */
         max-width: 1400px;
     }
-} */
+}
