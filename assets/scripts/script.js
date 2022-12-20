@@ -12,8 +12,21 @@ $(document).ready(function () {
     var city = "London";
     var lat = 51.5073219;
     var lon = -0.1276474;
-    
-    updateWeatherData(lat, lon);
+
+    if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            // Location acquired - update lat/lon and call with new values
+            lat = position.coords.latitude;
+            lon = position.coords.longitude;
+            updateWeatherData(lat, lon);
+        }, function () {
+            // Error getting location - call with default values
+            updateWeatherData(lat, lon); 
+        });
+    } else {
+        // Geolocation not available - call with defualt values
+        updateWeatherData(lat, lon);  
+    }  
 
     $("#search-form").on("submit", handleSearch);
 
@@ -101,6 +114,9 @@ $(document).ready(function () {
 
                 clearResults();
 
+                // Update city for Geolocation-based calls
+                city = response.city.name;
+                // Store forecast data for convenience
                 var forecasts = response.list;
                 // Store time of first forecast
                 var forecastTime = getHour(forecasts[0].dt);
@@ -117,8 +133,7 @@ $(document).ready(function () {
 
                 }
 
-                for (var i = 0; i < numDays; i++) {
-                    // Populate forecast for today - ONLY FOR FIRST ENTRY!
+                for (var i = 0; i < numDays; i++) {                    
                     var currDay = dailyForecasts[i];
                     var conditionsList = formatConditions(currDay);
                     var date = formatDate(currDay.dt);
