@@ -5,8 +5,11 @@ $(document).ready(function () {
     var geoCodeSegment = "geo/1.0/direct";
     var geoCodeEnd = "&limit=1&appid=" + API_KEY;
     var forecastSegment = "data/2.5/forecast";
-    var today = $("#today");
-    var fiveDayForecast = $("#five-day-forecast");
+    var todayElmt = $("#today");
+    var fiveDayForecastElmt = $("#five-day-forecast");
+    var historyElmt = $("#history");
+
+    updateHistory();
 
     // Default to London
     var city = "London";
@@ -14,6 +17,7 @@ $(document).ready(function () {
     var lon = -0.1276474;
 
     if ('geolocation' in navigator) {
+        todayElmt.html("<h2 class='col-12'>Loading weather data...</h2>");
         navigator.geolocation.getCurrentPosition(function (position) {
             // Location acquired - update lat/lon and call with new values
             lat = position.coords.latitude;
@@ -35,6 +39,24 @@ $(document).ready(function () {
         event.preventDefault();
 
         city = $("input[id='search-input']").val();
+
+        // Add to history
+        var history = JSON.parse(window.localStorage.getItem("history")) || [];
+
+        // Remove previous entry for this city so searches remain chronological
+        history = history.filter(function (item) {
+            return item !== city;
+        });
+
+        // Add latest search to updated History
+        history.push(city);
+
+        // Update in local storage
+        window.localStorage.setItem("history", JSON.stringify(history));
+
+        // Update DOM
+        updateHistory();
+
 
         if (city) {
             var geoQueryURL = baseURL + geoCodeSegment + "?q=" + city + geoCodeEnd;
@@ -60,8 +82,8 @@ $(document).ready(function () {
 
     // Remove results from previous calls
     function clearResults() {
-        today.empty();
-        fiveDayForecast.empty();
+        todayElmt.empty();
+        fiveDayForecastElmt.empty();
     }
 
     // Return int corresponding to hour on 24 hour clock of given timestamp
@@ -99,7 +121,7 @@ $(document).ready(function () {
     }
 
     function showNoDataAlert(city) {
-        fiveDayForecast.html("<div class='col-12'><div class='alert alert-danger' role='alert'>No data available for " + city + ".</div></div>");
+        fiveDayForecastElmt.html("<div class='col-12'><div class='alert alert-danger' role='alert'>No data available for " + city + ".</div></div>");
     }
 
     function updateWeatherData(lat, lon) {
@@ -144,16 +166,28 @@ $(document).ready(function () {
                             .append($("<div class='card-body pl-5 pt-4 p-sm-2 pl-lg-5 pt-lg-4 p-xl-2'>")
                                 .append(currDayTitle, conditionsList)));
 
-                    fiveDayForecast.append(currDayForecast);
+                    fiveDayForecastElmt.append(currDayForecast);
 
                     if (i === 0) {
                         // Populate today's forecast
                         var todayHead = $("<h2 class='col-12'>").text(city + "(" + date + ")");
                         // Clone conditionsList - simply appending moves the existing list from the 5 day forecast rather than making a copy
                         var conditionsToday = conditionsList.clone().addClass("col-12");
-                        today.append(todayHead, conditionsToday);
+                        todayElmt.append(todayHead, conditionsToday);
                     }
                 }
             });
+    }
+
+    function updateHistory() {
+
+        historyElmt.empty();
+
+        var history = JSON.parse(window.localStorage.getItem("history")) || [];
+
+        for (var i = 0; i < history.length; i++) {
+            var cityBtn = $("<button class='btn btn-secondary mb-2' type='submit'>").attr("data-city", history[i]).text(history[i]);
+            historyElmt.prepend(cityBtn);
+        }
     }
 });
