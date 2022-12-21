@@ -6,10 +6,13 @@ $(document).ready(function () {
     var geoCodeEnd = "&limit=1&appid=" + API_KEY;
     var forecastSegment = "data/2.5/forecast";
     var body = $("body");
-    var todayElmt = $("#today");
-    var fiveDayForecastElmt = $("#five-day-forecast");
-    var historyElmt = $("#history");
-    var statusMessageElmt = $("#message");
+    var interface = body.find("#interface");
+    var todayElmt = interface.find("#today");
+    var searchForm = interface.find("#search-form");
+    var seachInput = searchForm.find("#search-input");
+    var fiveDayForecastElmt = interface.find("#five-day-forecast");
+    var historyElmt = interface.find("#history");
+    var statusMessageElmt = interface.find("#message");
     var geolocated = false;
 
     showLoadingAlert();
@@ -38,8 +41,8 @@ $(document).ready(function () {
     }
 
     $(document).on('click', '.btn-history', handleHistoryClick);
-    $("#search-form").on("submit", handleSearch);
-    $("#search-input").on("focus", function () {
+    searchForm.on("submit", handleSearch);
+    seachInput.on("focus", function () {
         $(this).val("");
     });
 
@@ -151,7 +154,6 @@ $(document).ready(function () {
                 if (geolocated) {
                     // Update city for Geolocation-based calls
                     city = response.city.name;
-                    geolocated = false;
                 }
 
                 // Store forecast data for convenience
@@ -165,13 +167,16 @@ $(document).ready(function () {
                     return getHour(item.dt) === forecastTime;
                 });
                 var numDays = dailyForecasts.length;
-
-                if (numDays) {
-                    updateHistory();
-                } else {
+                
+                if (!numDays) {
                     // No data available - show alert
-                    return showNoDataAlert();
+                    return showNoDataAlert();    
+                } else if (!geolocated) {
+                    // This is a user-initated search - add to history
+                    updateHistory();
                 }
+                // Use search input for city name rather than value returned by API
+                geolocated = false;
 
                 for (var i = 0; i < numDays; i++) {
                     var currDay = dailyForecasts[i];
