@@ -1,3 +1,12 @@
+/*
+
+TODO:
+Font icons
+geolocation on line 34
+- we call updateWeatherData() in every instance
+
+*/
+
 $(document).ready(function () {
 
     var API_KEY = "5ea99b9314425a0dc64aac15b7e87095";
@@ -36,7 +45,7 @@ $(document).ready(function () {
             updateWeatherData();
         });
     } else {
-        // Geolocation not available - call with defualt values
+        // Geolocation not available - call with default values
         updateWeatherData();
     }
 
@@ -109,10 +118,10 @@ $(document).ready(function () {
         KPH = KPS * 3600
         so in fact API wind value * 3.6
         */
-        var conditions = {
-            humidity: forecastData.main.humidity + "&percnt;",
-            temp: forecastData.main.temp + "&#8451;",
-            wind: forecastData.wind.speed * 3.6 + "KPH"
+        var conditions = {            
+            temp: forecastData.main.temp + " &#8451;",
+            humidity: forecastData.main.humidity + " &percnt;",
+            wind: (forecastData.wind.speed * 3.6).toFixed(2) + " KPH"
         };
         // Extract keys to allow traversal of object
         var conditionKeys = Object.keys(conditions);
