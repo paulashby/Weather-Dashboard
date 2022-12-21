@@ -102,13 +102,18 @@ $(document).ready(function () {
     // Return HTML definition list from given forecast data (representing a single time period)
     function formatConditions(forecastData) {
 
-        // Extract required data
+        /*
+        Extract required data. 
+        API returns wind in m/sec, so need to convert to KPH:
+        KPS = wind/1000
+        KPH = KPS * 3600
+        so in fact API wind value * 3.6
+        */
         var conditions = {
-            humidity: forecastData.main.humidity,
-            temp: forecastData.main.temp,
-            wind: forecastData.wind.speed
+            humidity: forecastData.main.humidity + "&percnt;",
+            temp: forecastData.main.temp + "&#8451;",
+            wind: forecastData.wind.speed * 3.6 + "KPH"
         };
-
         // Extract keys to allow traversal of object
         var conditionKeys = Object.keys(conditions);
 
@@ -116,8 +121,8 @@ $(document).ready(function () {
         var conditionsList = $("<dl>");
 
         conditionKeys.forEach(function (value, i) {
-            // Build entry for each key
-            conditionsList.append($("<dt>").text(value + ":"), $("<dd>").text(conditions[value]));
+            // Build entry for each key. Use html() for dd elements to convert HTML entities (degree/percent characters)
+            conditionsList.append($("<dt>").text(value + ":"), $("<dd />").html(" " + conditions[value]));
         });
 
         return conditionsList;
@@ -138,7 +143,7 @@ $(document).ready(function () {
 
     function updateWeatherData() {
 
-        var forecastURL = baseURL + forecastSegment + "?lat=" + lat + "&lon=" + lon + "&appid=" + API_KEY;
+        var forecastURL = baseURL + forecastSegment + "?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
 
         $.ajax({
             url: forecastURL,
@@ -167,10 +172,10 @@ $(document).ready(function () {
                     return getHour(item.dt) === forecastTime;
                 });
                 var numDays = dailyForecasts.length;
-                
+
                 if (!numDays) {
                     // No data available - show alert
-                    return showNoDataAlert();    
+                    return showNoDataAlert();
                 } else if (!geolocated) {
                     // This is a user-initated search - add to history
                     updateHistory();
