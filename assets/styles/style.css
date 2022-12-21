@@ -75,7 +75,9 @@ aside {
 }
 
 #today h2,
-.btn-history {
+#today dt,
+.btn-history,
+.long-forecast-entry dt {
     text-transform: capitalize;
 }
 
