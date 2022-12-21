@@ -53,12 +53,30 @@ aside {
     background: linear-gradient(90deg, rgba(1,141,208,1) 0%, rgba(0,12,110,1) 100%);
 }
 
+#status,
 #city-data {
     background-color: #fff;
 }
 
+#status {
+    display: none;
+}
+
+.show-status #status {
+    display: block;
+}
+
+.show-status #city-data {
+    display: none;
+}
+
 #forecast dl {
     font-size: 0.9rem;
+}
+
+#today h2,
+.btn-history {
+    text-transform: capitalize;
 }
 
 #today dd, #forecast dd {
