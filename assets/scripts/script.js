@@ -12,6 +12,7 @@ $(document).ready(function () {
     var statusMessageElmt = $("#message");
     var geolocated = false;
 
+    showLoadingAlert();
     updateHistoryBtns();
 
     // Default to London
@@ -20,8 +21,6 @@ $(document).ready(function () {
     var lon = -0.1276474;
 
     if ('geolocation' in navigator) {
-        statusMessageElmt.text("Loading weather data...");
-        body.addClass("show-status");
         navigator.geolocation.getCurrentPosition(function (position) {
             // City name will be set according to geolocation data
             geolocated = true;
@@ -40,7 +39,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.btn-history', handleHistoryClick);
     $("#search-form").on("submit", handleSearch);
-    $("#search-input").on("focus", function(){
+    $("#search-input").on("focus", function () {
         $(this).val("");
     });
 
@@ -60,6 +59,7 @@ $(document).ready(function () {
     function loadCityData() {
 
         var geoQueryURL = baseURL + geoCodeSegment + "?q=" + city + geoCodeEnd;
+        showLoadingAlert();
 
         // Get lat/lon based on city name
         $.ajax({
@@ -70,7 +70,7 @@ $(document).ready(function () {
 
                 // Show error if no city returned
                 if (!response.length) {
-                    return showNoDataAlert(city);
+                    return showNoDataAlert();
                 }
                 // Get weather data using updated lat/lon
                 lat = response[0].lat;
@@ -120,22 +120,31 @@ $(document).ready(function () {
         return conditionsList;
     }
 
-    function showNoDataAlert(city) {
-        statusMessageElmt.text("No data available for " + city + ".");
+    function showNoDataAlert() {
+        showAlert("No data available for " + city + ".");
+    }
+
+    function showLoadingAlert() {
+        showAlert("Loading data...");
+    }
+
+    function showAlert(message) {
+        statusMessageElmt.text(message);
         body.addClass("show-status");
     }
 
     function updateWeatherData() {
 
         var forecastURL = baseURL + forecastSegment + "?lat=" + lat + "&lon=" + lon + "&appid=" + API_KEY;
-        // Remove "loading" message
-        body.removeClass("show-status");
 
         $.ajax({
             url: forecastURL,
             method: "GET"
         })
             .then(function (response) {
+
+                // Remove "loading" message
+                body.removeClass("show-status");
 
                 clearResults();
 
@@ -161,7 +170,7 @@ $(document).ready(function () {
                     updateHistory();
                 } else {
                     // No data available - show alert
-                    return showNoDataAlert(city);
+                    return showNoDataAlert();
                 }
 
                 for (var i = 0; i < numDays; i++) {
