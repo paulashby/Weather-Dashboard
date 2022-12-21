@@ -64,6 +64,7 @@ $(document).ready(function () {
     }
 
     function handleHistoryClick(event) {
+        // Load latest weather data for this city
         city = $(this).attr("data-city");
         loadCityData();
     }
@@ -237,7 +238,7 @@ $(document).ready(function () {
             return item !== city;
         });
 
-        // Add latest search to updated History
+        // Add latest search to updated History - store only city name, not ephemeral weather data
         history.push(city);
 
         // Update in local storage
