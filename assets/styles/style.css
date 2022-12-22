@@ -103,6 +103,11 @@ aside {
     color: #fff;
 }
 
+.conditions-icon {
+    width: 50px;
+    margin-top: -1rem;
+}
+
 @media screen and (min-width:576px) {
 
     #interface {

@@ -1,12 +1,3 @@
-/*
-
-TODO:
-Font icons
-geolocation on line 34
-- we call updateWeatherData() in every instance
-
-*/
-
 $(document).ready(function () {
 
     var API_KEY = "5ea99b9314425a0dc64aac15b7e87095";
@@ -196,22 +187,27 @@ $(document).ready(function () {
                 for (var i = 0; i < numDays; i++) {
                     var currDay = dailyForecasts[i];
                     var conditionsList = formatConditions(currDay);
+                    var iconCode = currDay.weather[0].icon;
+                    var iconURL = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+                    var iconAlt = currDay.weather[0].main;
                     var date = formatDate(currDay.dt);
                     // Update DOM
                     var currDayTitle = $("<h4 class='card-title'>").text(date);
+                    var currDayIcon = $("<img class='conditions-icon' src = '" + iconURL + "' alt='" + iconAlt +"'>");
                     var currDayForecast = $("<div class='col-12 col-sm-6 col-md-4 col-xl mb-4'>")
                         .append($("<div class='card rounded-0 long-forecast-entry'>")
                             .append($("<div class='card-body pl-5 pt-4 p-sm-2 pl-lg-5 pt-lg-4 p-xl-2'>")
-                                .append(currDayTitle, conditionsList)));
+                                .append(currDayTitle, currDayIcon, conditionsList)));
 
                     fiveDayForecastElmt.append(currDayForecast);
 
                     if (i === 0) {
                         // Populate today's forecast
-                        var todayHead = $("<h2 class='col-12'>").text(city + "(" + date + ")");
-                        // Clone conditionsList - simply appending moves the existing list from the 5 day forecast rather than making a copy
+                        var todayHead = $("<h2 class='col-12'>").text(city + " (" + date + ")");
+                        // Clone icon and conditionsList - simply appending moves the existing elements from the 5 day forecast rather than making copies
+                        var iconToday = currDayIcon.clone().addClass("ml-2");
                         var conditionsToday = conditionsList.clone().addClass("col-12");
-                        todayElmt.append(todayHead, conditionsToday);
+                        todayElmt.append(todayHead, iconToday, conditionsToday);
                     }
                 }
             });
@@ -222,7 +218,7 @@ $(document).ready(function () {
         historyElmt.empty();
 
         var history = JSON.parse(window.localStorage.getItem("history")) || [];
-
+        // Add button for each item in history array
         for (var i = 0; i < history.length; i++) {
             var cityBtn = $("<button class='btn btn-secondary mb-2 btn-history' type='submit'>").attr("data-city", history[i]).text(history[i]);
             historyElmt.prepend(cityBtn);
