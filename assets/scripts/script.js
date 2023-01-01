@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     var API_KEY = "5ea99b9314425a0dc64aac15b7e87095";
-    var baseURL = "http://api.openweathermap.org/";
+    var baseURL = "https://api.openweathermap.org/";
     var geoCodeSegment = "geo/1.0/direct";
     var geoCodeEnd = "&limit=1&appid=" + API_KEY;
     var forecastSegment = "data/2.5/forecast";
