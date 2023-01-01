@@ -188,7 +188,7 @@ $(document).ready(function () {
                     var currDay = dailyForecasts[i];
                     var conditionsList = formatConditions(currDay);
                     var iconCode = currDay.weather[0].icon;
-                    var iconURL = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+                    var iconURL = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
                     var iconAlt = currDay.weather[0].main;
                     var date = formatDate(currDay.dt);
                     // Update DOM
