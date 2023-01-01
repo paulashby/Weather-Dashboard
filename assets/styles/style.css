@@ -29,6 +29,7 @@ aside {
 
 #interface {
     max-width: 290px;
+    padding-bottom: 6rem;
 }
 
 #input-group-search {
@@ -48,7 +49,7 @@ aside {
     width: 100%;
 }
 
-.container-fluid {
+.weather-header {
     background: rgb(1,141,208);
     background: linear-gradient(90deg, rgba(1,141,208,1) 0%, rgba(0,12,110,1) 100%);
 }
@@ -111,6 +112,7 @@ aside {
 footer {
     background-color: rgb(34, 41, 92); 
     color: rgb(81, 169, 209);
+    height: 6rem;
     text-align: center;
     font-size: 0.8rem; 
     font-weight: normal;
