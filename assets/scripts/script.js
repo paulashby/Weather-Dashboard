@@ -13,7 +13,8 @@ $(document).ready(function () {
     var fiveDayForecastElmt = interface.find("#five-day-forecast");
     var historyElmt = interface.find("#history");
     var statusMessageElmt = interface.find("#message");
-    var geolocated = false;
+    var geolocated = false; // Value is inspected to allow us to use more precise 'city name' when geolocation is used
+    var pageLoad = true; // Value is inspected to ensure we don't add default/geolocated city to history
 
     showLoadingAlert();
     updateHistoryBtns();
@@ -158,8 +159,10 @@ $(document).ready(function () {
                 clearResults();
 
                 if (geolocated) {
-                    // Update city for Geolocation-based calls
+                    // Display name of location returned by API
                     city = response.city.name;
+                    // For subsequent calls, use user-submitted city name rather than value returned by API
+                    geolocated = false;                    
                 }
 
                 // Store forecast data for convenience
@@ -177,12 +180,12 @@ $(document).ready(function () {
                 if (!numDays) {
                     // No data available - show alert
                     return showNoDataAlert();
-                } else if (!geolocated) {
+                } else if (!pageLoad) {
                     // This is a user-initated search - add to history
                     updateHistory();
                 }
-                // Use search input for city name rather than value returned by API
-                geolocated = false;
+                // Allow subsequent cities to be added to history
+                pageLoad = false;
 
                 for (var i = 0; i < numDays; i++) {
                     var currDay = dailyForecasts[i];
