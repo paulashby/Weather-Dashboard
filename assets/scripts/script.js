@@ -175,6 +175,8 @@ $(document).ready(function () {
                 var dailyForecasts = forecasts.filter(function (item) {
                     return getHour(item.dt) === forecastTime;
                 });
+
+                // Store number of forecasts as we're inspecting value multiple times
                 var numDays = dailyForecasts.length;
 
                 if (!numDays) {
